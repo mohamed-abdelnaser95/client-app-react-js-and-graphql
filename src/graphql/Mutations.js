@@ -20,6 +20,12 @@ export const Add_User = gql`
     }
   }
 `;
+export const DELETE_USER = gql`
+  mutation deleteUser($id: Int!) {
+    deleteUser(id: $id)
+  }
+`;
+
 // mutation addUser(
 // $strName: String!,
 // $strEmail: String!,

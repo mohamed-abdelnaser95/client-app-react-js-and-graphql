@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Get_All_Users } from '../graphql/Queries';
-import { useQuery } from '@apollo/client';
-
+import { useQuery, useMutation } from '@apollo/client';
+import { DELETE_USER } from '../graphql/Mutations';
 const GetUsers = () => {
   const [users, setUsers] = useState([]);
   const { error, loading, data } = useQuery(Get_All_Users);
-
+  const [deleteUser, { error: error2 }] = useMutation(DELETE_USER);
   useEffect(() => {
     console.log(data);
     if (data) {
@@ -40,6 +40,12 @@ const GetUsers = () => {
               {' '}
               User Active : {data?.blnIsActive === true ? 'true' : 'false'}{' '}
             </p>
+            <button
+              style={{ backgroundColor: 'red', color: 'white' }}
+              onClick={() => deleteUser({ variables: { id: 1 * data?.id } })}
+            >
+              Delete
+            </button>
           </div>
         ))
       )}
